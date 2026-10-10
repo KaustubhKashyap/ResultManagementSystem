@@ -1,0 +1,12 @@
+*.class
+build/
+bin/
+.metadata/
+.settings/
+.env
+.env.*
+!.env.example
+config.properties
+*.log
+Thumbs.db
+.DS_Store

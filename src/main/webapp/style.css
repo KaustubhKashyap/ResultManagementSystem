@@ -1,0 +1,463 @@
+/* =========================================
+   RESULT MANAGEMENT SYSTEM
+   PROFESSIONAL DASHBOARD STYLE
+   ========================================= */
+
+body.dashboard-page {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1e293b;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.dashboard-page .header {
+    background: linear-gradient(135deg, #0f2747, #123d6b);
+    color: white;
+    padding: 22px 35px;
+    text-align: left;
+    box-shadow: 0 3px 12px rgba(15, 39, 71, 0.20);
+}
+
+.dashboard-page .header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.dashboard-page .header h3 {
+    margin-top: 8px;
+    font-weight: normal;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+   ========================================= */
+
+.dashboard-page .container {
+    width: 92%;
+    max-width: 1450px;
+    margin: 28px auto;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+
+/* =========================================
+   DASHBOARD LAYOUT
+   ========================================= */
+
+.dashboard-page .main-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+
+/* =========================================
+   SIDEBAR
+   ========================================= */
+
+.dashboard-page .sidebar {
+    width: 225px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #0f2747, #0b1d35);
+    padding: 22px 16px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(15, 39, 71, 0.18);
+    position: sticky;
+    top: 20px;
+}
+
+.dashboard-page .sidebar-title {
+    color: white;
+    text-align: left;
+    font-size: 20px;
+    margin: 5px 10px 22px;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+   SIDEBAR BUTTONS
+   ========================================= */
+
+.dashboard-page .sidebar .btn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+    margin: 8px 0;
+
+    background: #1d5fd1;
+    color: white;
+
+    text-decoration: none;
+    text-align: left;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    box-shadow: none;
+
+    transition: all 0.25s ease;
+}
+
+.dashboard-page .sidebar .btn:hover {
+    background: #2875ed;
+    transform: translateX(4px);
+}
+
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+.dashboard-page .sidebar .logout {
+    margin-top: 18px;
+    background: #dc3545 !important;
+    border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.dashboard-page .sidebar .logout:hover {
+    background: #bb2d3b !important;
+}
+
+
+/* =========================================
+   RIGHT CONTENT
+   ========================================= */
+
+.dashboard-page .content {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* =========================================
+   STATISTICS CARDS
+   ========================================= */
+
+.dashboard-page .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.dashboard-page .stat-card {
+    background: white;
+    padding: 22px;
+    min-width: 0;
+
+    border-radius: 14px;
+
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
+
+    text-align: left;
+
+    border: 1px solid #e8edf4;
+
+    transition: all 0.25s ease;
+}
+
+.dashboard-page .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.dashboard-page .stat-card h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.dashboard-page .stat-card h2 {
+    margin: 0;
+    font-size: 32px;
+    color: #0f2747;
+    font-weight: 700;
+}
+
+
+/* Different card colors */
+
+.dashboard-page .stat-card:nth-child(1) {
+    border-left: 5px solid #2563eb;
+    background: linear-gradient(135deg, #ffffff, #eef5ff);
+}
+
+.dashboard-page .stat-card:nth-child(2) {
+    border-left: 5px solid #16a34a;
+    background: linear-gradient(135deg, #ffffff, #effcf4);
+}
+
+.dashboard-page .stat-card:nth-child(3) {
+    border-left: 5px solid #f59e0b;
+    background: linear-gradient(135deg, #ffffff, #fff8e8);
+}
+
+.dashboard-page .stat-card:nth-child(4) {
+    border-left: 5px solid #8b5cf6;
+    background: linear-gradient(135deg, #ffffff, #f6f2ff);
+}
+
+
+/* =========================================
+   DASHBOARD CARD
+   ========================================= */
+
+.dashboard-page .card {
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 16px;
+
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
+
+    line-height: 1.7;
+
+    border: 1px solid #e8edf4;
+    border-left: 5px solid #2563eb;
+
+    min-height: 300px;
+}
+
+.dashboard-page .card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+
+    color: #0f2747;
+
+    font-size: 25px;
+    text-align: left;
+}
+
+.dashboard-page .card p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.dashboard-page .card ul {
+    columns: 2;
+    padding-left: 22px;
+}
+
+.dashboard-page .card li {
+    margin-bottom: 8px;
+    color: #475569;
+}
+
+
+/* =========================================
+   GENERAL HEADINGS
+   ========================================= */
+
+.dashboard-page h2 {
+    color: #0f2747;
+}
+
+
+/* =========================================
+   TABLES
+   ========================================= */
+
+.dashboard-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dashboard-page table,
+.dashboard-page th,
+.dashboard-page td {
+    border: 1px solid #e2e8f0;
+}
+
+.dashboard-page th {
+    background: #0f2747;
+    color: white;
+    font-weight: 600;
+}
+
+.dashboard-page th,
+.dashboard-page td {
+    padding: 12px;
+    text-align: center;
+}
+
+.dashboard-page tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+
+/* =========================================
+   FORMS
+   ========================================= */
+
+.dashboard-page input[type=text],
+.dashboard-page input[type=number],
+.dashboard-page input[type=email],
+.dashboard-page input[type=password],
+.dashboard-page select {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    margin-bottom: 15px;
+
+    box-sizing: border-box;
+
+    font-family: inherit;
+}
+
+.dashboard-page input[type=text]:focus,
+.dashboard-page input[type=number]:focus,
+.dashboard-page input[type=email]:focus,
+.dashboard-page input[type=password]:focus,
+.dashboard-page select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.dashboard-page input[type=submit] {
+    background: #2563eb;
+    color: white;
+
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.dashboard-page input[type=submit]:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================================
+   EDIT / DELETE BUTTONS
+   ========================================= */
+
+.dashboard-page .edit-btn {
+    background: #2563eb;
+    color: white;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.dashboard-page .delete-btn {
+    background: #dc3545;
+    color: white;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.dashboard-page .edit-btn:hover {
+    background: #1d4ed8;
+}
+
+.dashboard-page .delete-btn:hover {
+    background: #bb2d3b;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.dashboard-page .footer {
+    text-align: center;
+    margin-top: 25px;
+    padding: 18px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.dashboard-page .footer hr {
+    border: 0;
+    border-top: 1px solid #dbe2ea;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .dashboard-page .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .dashboard-page .main-layout {
+        flex-direction: column;
+    }
+
+    .dashboard-page .sidebar {
+        width: auto;
+        position: static;
+    }
+
+    .dashboard-page .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-page .card ul {
+        columns: 1;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .dashboard-page .container {
+        width: 94%;
+    }
+
+    .dashboard-page .header {
+        padding: 18px;
+    }
+
+    .dashboard-page .header h1 {
+        font-size: 22px;
+    }
+
+    .dashboard-page .card {
+        padding: 20px;
+    }
+
+}
