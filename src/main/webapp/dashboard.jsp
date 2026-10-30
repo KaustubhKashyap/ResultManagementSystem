@@ -1,3 +1,4 @@
+
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 
@@ -13,897 +14,752 @@ Object highestObj = request.getAttribute("highestPercentage");
 double highestPercentage = 0;
 
 if(highestObj != null){
-    highestPercentage = ((Double)highestObj).doubleValue();
+    highestPercentage = ((Number)highestObj).doubleValue();
 }
+
+Object students = request.getAttribute("students");
+Object subjects = request.getAttribute("subjects");
+Object marks = request.getAttribute("marks");
+Object topper = request.getAttribute("topper");
+
+String currentDate = new SimpleDateFormat("dd MMMM yyyy").format(new Date());
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Admin Dashboard | Result Management System</title>
 
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
-
-/* =========================
-   DASHBOARD PAGE
-========================= */
-
-.dashboard-page{
-    margin:0;
-    padding:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f1f5f9;
-    color:#1e293b;
+* {
+    box-sizing: border-box;
 }
 
-/* =========================
-   TOP HEADER
-========================= */
-
-.dashboard-header{
-    background:linear-gradient(135deg,#0f172a,#1e3a5f);
-    color:white;
-    padding:22px 45px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 3px 12px rgba(0,0,0,0.15);
+body.dashboard-page {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
 }
 
-.brand-section h1{
-    margin:0;
-    font-size:28px;
-    letter-spacing:.3px;
+.dashboard-header {
+    background: linear-gradient(120deg, #101b36, #1d3b70);
+    color: white;
+    padding: 20px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 18px rgba(15,23,42,.15);
 }
 
-.brand-section p{
-    margin:6px 0 0;
-    font-size:14px;
-    color:#cbd5e1;
+.brand-section h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
 }
 
-.admin-info{
-    text-align:right;
+.brand-section p {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: #cbd5e1;
 }
 
-.admin-info .welcome{
-    font-size:13px;
-    color:#cbd5e1;
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.admin-info .admin-name{
-    font-size:17px;
-    font-weight:bold;
-    margin-top:4px;
+.admin-avatar {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #3b82f6;
+    font-size: 20px;
 }
 
-/* =========================
-   MAIN WRAPPER
-========================= */
-
-.dashboard-wrapper{
-    width:92%;
-    max-width:1450px;
-    margin:28px auto;
+.admin-details .welcome {
+    color: #cbd5e1;
+    font-size: 12px;
 }
 
-.main-layout{
-    display:flex;
-    gap:25px;
-    align-items:flex-start;
+.admin-details .admin-name {
+    font-weight: 700;
+    margin-top: 4px;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-    width:245px;
-    flex-shrink:0;
-    background:#0f172a;
-    padding:22px 16px;
-    border-radius:16px;
-    box-shadow:0 8px 25px rgba(15,23,42,.18);
+.dashboard-wrapper {
+    width: 94%;
+    max-width: 1500px;
+    margin: 30px auto;
 }
 
-.sidebar-title{
-    color:white !important;
-    text-align:left !important;
-    font-size:21px !important;
-    margin:4px 10px 22px !important;
-    letter-spacing:.5px;
+.main-layout {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
 }
 
-.sidebar-subtitle{
-    color:#94a3b8;
-    font-size:11px;
-    margin:0 10px 12px;
-    text-transform:uppercase;
-    letter-spacing:1px;
+.sidebar {
+    width: 245px;
+    flex-shrink: 0;
+    background: #111c35;
+    padding: 23px 15px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(15,23,42,.12);
 }
 
-.menu-btn{
-    display:block;
-    width:100%;
-    box-sizing:border-box;
-    padding:12px 14px;
-    margin:7px 0;
-    background:#1d4ed8;
-    color:white;
-    text-decoration:none;
-    border-radius:9px;
-    font-size:14px;
-    font-weight:600;
-    transition:.2s;
+.sidebar-title {
+    color: white !important;
+    text-align: left !important;
+    font-size: 19px !important;
+    margin: 3px 10px 25px !important;
+    letter-spacing: .5px;
 }
 
-.menu-btn:hover{
-    background:#2563eb;
-    transform:translateX(3px);
+.sidebar-subtitle {
+    color: #8292b1;
+    font-size: 10px;
+    margin: 20px 10px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
 }
 
-.menu-divider{
-    border:0;
-    border-top:1px solid #334155;
-    margin:18px 10px;
+.menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 13px;
+    margin: 5px 0;
+    background: transparent;
+    color: #dbe5f5;
+    text-decoration: none;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: .2s;
 }
 
-.logout-btn{
-    background:#dc2626 !important;
+.menu-btn i {
+    font-size: 17px;
 }
 
-.logout-btn:hover{
-    background:#b91c1c !important;
+.menu-btn:hover {
+    background: #254b8d;
+    color: white;
+    transform: translateX(3px);
 }
 
-/* =========================
-   RIGHT CONTENT
-========================= */
-
-.content{
-    flex:1;
-    min-width:0;
+.menu-divider {
+    border: 0;
+    border-top: 1px solid #2c3b59;
+    margin: 17px 8px;
 }
 
-.page-intro{
-    margin-bottom:20px;
+.logout-btn {
+    background: #7f2634;
+    color: white;
+    margin-top: 15px;
 }
 
-.page-intro h2{
-    margin:0;
-    font-size:26px;
-    color:#0f172a;
-    text-align:left;
+.logout-btn:hover {
+    background: #dc3545;
 }
 
-.page-intro p{
-    margin:7px 0 0;
-    color:#64748b;
-    font-size:14px;
+.content {
+    flex: 1;
+    min-width: 0;
 }
 
-/* =========================
-   STATISTICS
-========================= */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:17px;
-    margin-bottom:22px;
+.page-intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
 }
 
-.stat-card{
-    background:white;
-    padding:21px;
-    border-radius:14px;
-    box-shadow:0 5px 18px rgba(15,23,42,.08);
-    border:1px solid #e2e8f0;
-    position:relative;
-    overflow:hidden;
+.page-intro h2 {
+    margin: 0;
+    font-size: 27px;
+    color: #14213d;
+    text-align: left;
 }
 
-.stat-card::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:5px;
+.page-intro p {
+    margin: 7px 0 0;
+    color: #718096;
+    font-size: 13px;
 }
 
-.stat-blue::before{
-    background:#2563eb;
+.date-label {
+    background: white;
+    padding: 11px 15px;
+    border: 1px solid #e5eaf2;
+    border-radius: 9px;
+    color: #52627a;
+    font-size: 12px;
+    white-space: nowrap;
 }
 
-.stat-green::before{
-    background:#16a34a;
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-bottom: 23px;
 }
 
-.stat-orange::before{
-    background:#f59e0b;
+.stat-card {
+    background: white;
+    padding: 21px;
+    border-radius: 14px;
+    border: 1px solid #e9edf4;
+    box-shadow: 0 4px 15px rgba(15,23,42,.045);
+    transition: .2s;
+    min-width: 0;
 }
 
-.stat-purple::before{
-    background:#7c3aed;
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 23px rgba(15,23,42,.09);
 }
 
-.stat-label{
-    color:#64748b;
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:10px;
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
 }
 
-.stat-value{
-    color:#0f172a;
-    font-size:31px;
-    font-weight:bold;
+.stat-label {
+    color: #748198;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
 }
 
-.stat-description{
-    color:#94a3b8;
-    font-size:11px;
-    margin-top:7px;
+.stat-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    font-size: 20px;
 }
 
-.topper-name{
-    font-size:21px;
-    margin-top:7px;
+.icon-blue {
+    background: #e8f0ff;
+    color: #2563eb;
 }
 
-/* =========================
-   CONTENT GRID
-========================= */
-
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:20px;
+.icon-green {
+    background: #e4f8ed;
+    color: #16a34a;
 }
 
-/* =========================
-   CARDS
-========================= */
-
-.dashboard-card{
-    background:white;
-    border:1px solid #e2e8f0;
-    border-radius:15px;
-    padding:24px;
-    box-shadow:0 5px 18px rgba(15,23,42,.07);
+.icon-orange {
+    background: #fff2df;
+    color: #ea8a13;
 }
 
-.dashboard-card h3{
-    margin:0;
-    color:#0f172a;
-    font-size:19px;
+.icon-purple {
+    background: #f0eaff;
+    color: #7c3aed;
 }
 
-.card-subtitle{
-    color:#64748b;
-    font-size:13px;
-    margin:6px 0 20px;
+.stat-value {
+    color: #15213a;
+    font-size: 30px;
+    font-weight: 750;
+    margin-top: 15px;
+    overflow-wrap: anywhere;
 }
 
-/* =========================
-   PERFORMANCE BOX
-========================= */
-
-.performance-box{
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    border-radius:12px;
-    padding:18px;
-    margin-top:15px;
+.topper-name {
+    font-size: 20px;
 }
 
-.performance-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:10px;
+.stat-description {
+    color: #9aa5b5;
+    font-size: 11px;
+    margin-top: 7px;
 }
 
-.performance-label{
-    color:#475569;
-    font-size:13px;
-    font-weight:600;
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
 }
 
-.performance-value{
-    color:#0f172a;
-    font-size:17px;
-    font-weight:bold;
+.dashboard-card {
+    background: white;
+    border: 1px solid #e9edf4;
+    border-radius: 15px;
+    padding: 23px;
+    box-shadow: 0 4px 15px rgba(15,23,42,.045);
 }
 
-.progress{
-    width:100%;
-    height:9px;
-    background:#e2e8f0;
-    border-radius:20px;
-    overflow:hidden;
+.dashboard-card h3 {
+    margin: 0;
+    color: #17233e;
+    font-size: 18px;
 }
 
-.progress-bar{
-    height:100%;
-    width:<%=highestPercentage%>%;
-    background:linear-gradient(90deg,#2563eb,#3b82f6);
-    border-radius:20px;
+.card-subtitle {
+    color: #8490a3;
+    font-size: 12px;
+    margin: 7px 0 20px;
 }
 
-/* =========================
-   QUICK ACTIONS
-========================= */
-
-.action-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px;
+.performance-box {
+    background: #f8faff;
+    border: 1px solid #e9eef8;
+    border-radius: 11px;
+    padding: 17px;
+    margin-top: 13px;
 }
 
-.action-btn{
-    display:block;
-    padding:13px 10px;
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    border-radius:10px;
-    text-decoration:none;
-    color:#1e293b;
-    font-size:13px;
-    font-weight:600;
-    transition:.2s;
+.performance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
-.action-btn:hover{
-    background:#eff6ff;
-    border-color:#93c5fd;
-    transform:translateY(-2px);
+.performance-label {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
 }
 
-.action-icon{
-    display:block;
-    font-size:18px;
-    margin-bottom:6px;
+.performance-value {
+    color: #17233e;
+    font-size: 16px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    text-align: right;
 }
 
-/* =========================
-   SYSTEM INFORMATION
-========================= */
-
-.info-card{
-    margin-top:20px;
+.progress {
+    width: 100%;
+    height: 9px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-    margin-top:18px;
+.progress-bar {
+    height: 100%;
+    width: <%=Math.max(0, Math.min(100, highestPercentage))%>%;
+    background: linear-gradient(90deg,#2563eb,#60a5fa);
+    border-radius: 20px;
 }
 
-.info-item{
-    background:#f8fafc;
-    padding:16px;
-    border-radius:10px;
-    border:1px solid #e2e8f0;
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
 }
 
-.info-item strong{
-    display:block;
-    color:#334155;
-    font-size:13px;
-    margin-bottom:5px;
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 15px 12px;
+    background: #f8faff;
+    border: 1px solid #e7edf6;
+    border-radius: 11px;
+    text-decoration: none;
+    color: #34425c;
+    font-size: 12px;
+    font-weight: 700;
+    transition: .2s;
 }
 
-.info-item span{
-    color:#64748b;
-    font-size:12px;
+.action-btn i {
+    color: #2563eb;
+    font-size: 21px;
 }
 
-/* =========================
-   FOOTER
-========================= */
-
-.dashboard-footer{
-    text-align:center;
-    color:#94a3b8;
-    font-size:12px;
-    padding:25px 10px;
+.action-btn:hover {
+    background: #edf4ff;
+    border-color: #9bbdf7;
+    transform: translateY(-3px);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.info-card {
+    margin-top: 20px;
+}
 
-@media(max-width:1000px){
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-top: 18px;
+}
 
-    .stats{
-        grid-template-columns:repeat(2,1fr);
+.info-item {
+    background: #f8faff;
+    padding: 17px;
+    border-radius: 11px;
+    border: 1px solid #e9eef6;
+}
+
+.info-item i {
+    color: #2563eb;
+    font-size: 21px;
+}
+
+.info-item strong {
+    display: block;
+    color: #34425c;
+    font-size: 13px;
+    margin: 10px 0 6px;
+}
+
+.info-item span {
+    color: #8591a5;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.dashboard-footer {
+    text-align: center;
+    color: #9aa5b5;
+    font-size: 11px;
+    padding: 25px 10px;
+}
+
+@media(max-width:1100px) {
+    .stats {
+        grid-template-columns: repeat(2,1fr);
     }
 
-    .dashboard-grid{
-        grid-template-columns:1fr;
+    .dashboard-grid {
+        grid-template-columns: 1fr;
     }
-
 }
 
-@media(max-width:750px){
-
-    .dashboard-header{
-        padding:18px 20px;
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
+@media(max-width:750px) {
+    .dashboard-header {
+        padding: 18px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 17px;
     }
 
-    .admin-info{
-        text-align:left;
+    .main-layout {
+        flex-direction: column;
     }
 
-    .main-layout{
-        flex-direction:column;
+    .sidebar {
+        width: 100%;
     }
 
-    .sidebar{
-        width:100%;
-        box-sizing:border-box;
+    .dashboard-wrapper {
+        width: 94%;
+        margin-top: 20px;
     }
 
-    .stats{
-        grid-template-columns:1fr;
+    .page-intro {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
-    .info-grid{
-        grid-template-columns:1fr;
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
-    .dashboard-wrapper{
-        width:94%;
+    .stat-card {
+        padding: 15px;
     }
 
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
+@media(max-width:420px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .action-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .brand-section h1 {
+        font-size: 21px;
+    }
+}
 </style>
-
 </head>
 
 <body class="dashboard-page">
 
-<!-- ================= HEADER ================= -->
-
-<div class="dashboard-header">
-
+<header class="dashboard-header">
     <div class="brand-section">
-
-        <h1>Result Management System</h1>
-
+        <h1><i class="bi bi-mortarboard-fill"></i> Result Management System</h1>
         <p>Academic Result & Student Management Portal</p>
-
     </div>
 
     <div class="admin-info">
-
-        <div class="welcome">Logged in as</div>
-
-        <div class="admin-name">
-           Administrator - <%=adminName%> 
+        <div class="admin-avatar"><i class="bi bi-person-fill"></i></div>
+        <div class="admin-details">
+            <div class="welcome">Logged in as Administrator</div>
+            <div class="admin-name"><%=adminName%></div>
         </div>
-
     </div>
-
-</div>
-
-
-<!-- ================= MAIN ================= -->
+</header>
 
 <div class="dashboard-wrapper">
-
 <div class="main-layout">
 
+    <aside class="sidebar">
+        <h2 class="sidebar-title">ADMIN PANEL</h2>
 
-<!-- ================= SIDEBAR ================= -->
+        <div class="sidebar-subtitle">Management</div>
 
-<div class="sidebar">
-
-    <h2 class="sidebar-title">
-        ADMIN PANEL
-    </h2>
-
-    <div class="sidebar-subtitle">
-        Management
-    </div>
-
-    <a class="menu-btn" href="addStudent.jsp">
-        Add Student
-    </a>
-
-    <a class="menu-btn" href="ViewStudentsServlet">
-        View Students
-    </a>
-
-    <a class="menu-btn" href="addSubject.jsp">
-        Manage Subjects
-    </a>
-
-    <a class="menu-btn" href="ViewSubjectsServlet">
-        View Subjects
-    </a>
-
-    <hr class="menu-divider">
-
-    <div class="sidebar-subtitle">
-        Results
-    </div>
-
-    <a class="menu-btn" href="enterMarks.jsp">
-        Enter Marks
-    </a>
-
-    <a class="menu-btn" href="adminViewResult.jsp">
-    View Results
-</a>
-
-    <a class="menu-btn" href="PassFailServlet">
-        Pass / Fail Report
-    </a>
-
-    <a class="menu-btn" href="TopperServlet">
-        Topper List
-    </a>
-
-    <hr class="menu-divider">
-
-    <div class="sidebar-subtitle">
-        Tools
-    </div>
-
-    <a class="menu-btn" href="searchStudent.jsp">
-        Search Student
-    </a>
-
-    <a class="menu-btn" href="ResultSummaryServlet">
-        Result Summary
-    </a>
-
-    <hr class="menu-divider">
-
-    <a href="LogoutServlet" class="menu-btn logout-btn">
-        Logout
-    </a>
-
-</div>
-
-
-<!-- ================= CONTENT ================= -->
-
-<div class="content">
-
-
-<!-- INTRO -->
-
-<div class="page-intro">
-
-    <h2>Dashboard Overview</h2>
-
-    <p>
-        Monitor students, subjects, marks and academic performance from one place.
-    </p>
-
-</div>
-
-
-<!-- ================= STATISTICS ================= -->
-
-<div class="stats">
-
-
-    <div class="stat-card stat-blue">
-
-        <div class="stat-label">
-            TOTAL STUDENTS
-        </div>
-
-        <div class="stat-value">
-            <%=request.getAttribute("students")%>
-        </div>
-
-        <div class="stat-description">
-            Registered student records
-        </div>
-
-    </div>
-
-
-    <div class="stat-card stat-green">
-
-        <div class="stat-label">
-            TOTAL SUBJECTS
-        </div>
-
-        <div class="stat-value">
-            <%=request.getAttribute("subjects")%>
-        </div>
-
-        <div class="stat-description">
-            Available academic subjects
-        </div>
-
-    </div>
-
-
-    <div class="stat-card stat-orange">
-
-        <div class="stat-label">
-            MARK ENTRIES
-        </div>
-
-        <div class="stat-value">
-            <%=request.getAttribute("marks")%>
-        </div>
-
-        <div class="stat-description">
-            Student subject marks
-        </div>
-
-    </div>
-
-
-    <div class="stat-card stat-purple">
-
-        <div class="stat-label">
-            TOP PERFORMER
-        </div>
-
-        <div class="stat-value topper-name">
-            <%=request.getAttribute("topper")%>
-        </div>
-
-        <div class="stat-description">
-            Highest academic performance
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= MAIN CARDS ================= -->
-
-<div class="dashboard-grid">
-
-
-<!-- PERFORMANCE -->
-
-<div class="dashboard-card">
-
-    <h3>Academic Performance</h3>
-
-    <p class="card-subtitle">
-        Current highest percentage recorded in the system
-    </p>
-
-
-    <div class="performance-box">
-
-        <div class="performance-row">
-
-            <span class="performance-label">
-                Highest Percentage
-            </span>
-
-            <span class="performance-value">
-                <%=String.format("%.2f",highestPercentage)%>%
-            </span>
-
-        </div>
-
-        <div class="progress">
-
-            <div class="progress-bar"></div>
-
-        </div>
-
-    </div>
-
-
-    <div class="performance-box">
-
-        <div class="performance-row">
-
-            <span class="performance-label">
-                Top Performer
-            </span>
-
-            <span class="performance-value">
-                <%=request.getAttribute("topper")%>
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="performance-box">
-
-        <div class="performance-row">
-
-            <span class="performance-label">
-                Student Records
-            </span>
-
-            <span class="performance-value">
-                <%=request.getAttribute("students")%>
-            </span>
-
-        </div>
-
-        <div class="performance-row">
-
-            <span class="performance-label">
-                Subject Records
-            </span>
-
-            <span class="performance-value">
-                <%=request.getAttribute("subjects")%>
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- QUICK ACTIONS -->
-
-<div class="dashboard-card">
-
-    <h3>Quick Actions</h3>
-
-    <p class="card-subtitle">
-        Frequently used administration tools
-    </p>
-
-
-    <div class="action-grid">
-
-
-        <a class="action-btn" href="addStudent.jsp">
-
-            <span class="action-icon">+</span>
-
-            Add Student
-
+        <a class="menu-btn" href="addStudent.jsp">
+            <i class="bi bi-person-plus"></i> Add Student
         </a>
 
-
-        <a class="action-btn" href="ViewStudentsServlet">
-
-            <span class="action-icon">ST</span>
-
-            Students
-
+        <a class="menu-btn" href="ViewStudentsServlet">
+            <i class="bi bi-people"></i> View Students
         </a>
 
-
-        <a class="action-btn" href="addSubject.jsp">
-
-            <span class="action-icon">SUB</span>
-
-            Subjects
-
+        <a class="menu-btn" href="addSubject.jsp">
+            <i class="bi bi-journal-plus"></i> Manage Subjects
         </a>
 
-
-        <a class="action-btn" href="enterMarks.jsp">
-
-            <span class="action-icon">MK</span>
-
-            Enter Marks
-
+        <a class="menu-btn" href="ViewSubjectsServlet">
+            <i class="bi bi-journals"></i> View Subjects
         </a>
 
+        <hr class="menu-divider">
 
-       <a class="action-btn" href="adminViewResult.jsp">
+        <div class="sidebar-subtitle">Results</div>
 
-            <span class="action-icon">RES</span>
-
-            Results
-
+        <a class="menu-btn" href="enterMarks.jsp">
+            <i class="bi bi-pencil-square"></i> Enter Marks
         </a>
 
-
-        <a class="action-btn" href="searchStudent.jsp">
-
-            <span class="action-icon">SRCH</span>
-
-            Search
-
+        <a class="menu-btn" href="adminViewResult.jsp">
+            <i class="bi bi-file-earmark-text"></i> View Results
         </a>
 
+        <a class="menu-btn" href="PassFailServlet">
+            <i class="bi bi-clipboard-check"></i> Pass / Fail Report
+        </a>
 
-    </div>
+        <a class="menu-btn" href="TopperServlet">
+            <i class="bi bi-trophy"></i> Topper List
+        </a>
 
-</div>
+        <hr class="menu-divider">
 
-</div>
+        <div class="sidebar-subtitle">Tools</div>
 
+        <a class="menu-btn" href="searchStudent.jsp">
+            <i class="bi bi-search"></i> Search Student
+        </a>
 
-<!-- ================= SYSTEM INFORMATION ================= -->
+        <a class="menu-btn" href="ResultSummaryServlet">
+            <i class="bi bi-bar-chart-line"></i> Result Summary
+        </a>
 
-<div class="dashboard-card info-card">
+        <hr class="menu-divider">
 
-    <h3>System Information</h3>
+        <a href="LogoutServlet" class="menu-btn logout-btn">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </aside>
 
-    <p class="card-subtitle">
-        Result Management System administration panel
-    </p>
+    <main class="content">
 
+        <div class="page-intro">
+            <div>
+                <h2>Dashboard Overview</h2>
+                <p>Welcome back! Here's what's happening in your institution.</p>
+            </div>
 
-    <div class="info-grid">
+            <div class="date-label">
+                <i class="bi bi-calendar3"></i> <%=currentDate%>
+            </div>
+        </div>
 
+        <div class="stats">
 
-        <div class="info-item">
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-label">TOTAL STUDENTS</div>
+                    <div class="stat-icon icon-blue">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-value"><%=students != null ? students : 0%></div>
+                <div class="stat-description">Registered student records</div>
+            </div>
 
-            <strong>Student Management</strong>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-label">TOTAL SUBJECTS</div>
+                    <div class="stat-icon icon-green">
+                        <i class="bi bi-book-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-value"><%=subjects != null ? subjects : 0%></div>
+                <div class="stat-description">Available academic subjects</div>
+            </div>
 
-            <span>
-                Add, edit, delete and search student records.
-            </span>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-label">MARK ENTRIES</div>
+                    <div class="stat-icon icon-orange">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                </div>
+                <div class="stat-value"><%=marks != null ? marks : 0%></div>
+                <div class="stat-description">Student subject marks</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-label">TOP PERFORMER</div>
+                    <div class="stat-icon icon-purple">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-value topper-name"><%=topper != null ? topper : "N/A"%></div>
+                <div class="stat-description">Highest academic performance</div>
+            </div>
 
         </div>
 
+        <div class="dashboard-grid">
 
-        <div class="info-item">
+            <section class="dashboard-card">
+                <h3><i class="bi bi-graph-up-arrow"></i> Academic Performance</h3>
+                <p class="card-subtitle">Highest percentage recorded in the system</p>
 
-            <strong>Marks Management</strong>
+                <div class="performance-box">
+                    <div class="performance-row">
+                        <span class="performance-label">Highest Percentage</span>
+                        <span class="performance-value"><%=String.format("%.2f",highestPercentage)%>%</span>
+                    </div>
 
-            <span>
-                Enter student marks and generate academic results.
-            </span>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="performance-box">
+                    <div class="performance-row">
+                        <span class="performance-label">Top Performer</span>
+                        <span class="performance-value"><%=topper != null ? topper : "N/A"%></span>
+                    </div>
+                </div>
+
+                <div class="performance-box">
+                    <div class="performance-row">
+                        <span class="performance-label">Student Records</span>
+                        <span class="performance-value"><%=students != null ? students : 0%></span>
+                    </div>
+
+                    <div class="performance-row" style="margin-bottom:0">
+                        <span class="performance-label">Subject Records</span>
+                        <span class="performance-value"><%=subjects != null ? subjects : 0%></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-card">
+                <h3><i class="bi bi-lightning-charge-fill"></i> Quick Actions</h3>
+                <p class="card-subtitle">Frequently used administration tools</p>
+
+                <div class="action-grid">
+                    <a class="action-btn" href="addStudent.jsp">
+                        <i class="bi bi-person-plus-fill"></i>
+                        Add Student
+                    </a>
+
+                    <a class="action-btn" href="ViewStudentsServlet">
+                        <i class="bi bi-people-fill"></i>
+                        Students
+                    </a>
+
+                    <a class="action-btn" href="addSubject.jsp">
+                        <i class="bi bi-journal-plus"></i>
+                        Subjects
+                    </a>
+
+                    <a class="action-btn" href="enterMarks.jsp">
+                        <i class="bi bi-pencil-square"></i>
+                        Enter Marks
+                    </a>
+
+                    <a class="action-btn" href="adminViewResult.jsp">
+                        <i class="bi bi-file-earmark-text"></i>
+                        Results
+                    </a>
+
+                    <a class="action-btn" href="searchStudent.jsp">
+                        <i class="bi bi-search"></i>
+                        Search
+                    </a>
+                </div>
+            </section>
 
         </div>
 
+        <section class="dashboard-card info-card">
+            <h3><i class="bi bi-info-circle"></i> System Information</h3>
+            <p class="card-subtitle">Result Management System administration panel</p>
 
-        <div class="info-item">
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="bi bi-people-fill"></i>
+                    <strong>Student Management</strong>
+                    <span>Add, edit, delete and search student records.</span>
+                </div>
 
-            <strong>Reports & Analytics</strong>
+                <div class="info-item">
+                    <i class="bi bi-journal-check"></i>
+                    <strong>Marks Management</strong>
+                    <span>Enter student marks and generate academic results.</span>
+                </div>
 
-            <span>
-                View topper, pass/fail and result summary reports.
-            </span>
+                <div class="info-item">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <strong>Reports & Analytics</strong>
+                    <span>View topper, pass/fail and result summary reports.</span>
+                </div>
+            </div>
+        </section>
 
-        </div>
-
-
-    </div>
-
+    </main>
+</div>
 </div>
 
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ================= FOOTER ================= -->
-
-<div class="dashboard-footer">
-
-    © 2026 Result Management System
-    <br>
-    Academic Administration Portal
-
-</div>
-
+<footer class="dashboard-footer">
+    © 2026 Result Management System | Academic Administration Portal
+</footer>
 
 </body>
 </html>
